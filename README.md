@@ -1,6 +1,6 @@
 # Juno Hosting Server
 
-This repository holds the code for the backend server that powers many aspects of the [Juno Hosting Website](https://github.com/junodevs/hostingh-website) such as authentication, billing, etc.
+This repository holds the code for the backend server that powers many aspects of the [Juno Hosting Website](https://github.com/junodevs/hosting-website) such as authentication, billing, etc.
 
 ## Installation
 ## Usage
