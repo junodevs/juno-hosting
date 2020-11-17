@@ -15,5 +15,7 @@ import (
 func registerRoutes(app *fiber.App) {
 	v1 := app.Group("/v1")
 
+	v1.Get("/login", authentication.LoginRoute)
 	v1.Get("/me", authentication.MeRoute)
+	v1.Get("/callback", authentication.CallbackRoute)
 }

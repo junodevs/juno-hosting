@@ -12,6 +12,9 @@ import (
 	"github.com/junodevs/hosting-server/config"
 	"github.com/junodevs/hosting-server/database"
 	"github.com/junodevs/hosting-server/server"
+	"github.com/junodevs/hosting-server/server/v1/authentication"
+	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/github"
 )
 
 func main() {
@@ -23,6 +26,17 @@ func main() {
 	// Connect to Redis database
 	if err := database.Connect(); err != nil {
 		log.Fatalf("got error when connecting to database: %v", err)
+	}
+
+	// Populate OAuth2 client configuration
+	authentication.OAuthConfig = &oauth2.Config{
+		RedirectURL:  "http://localhost:8080/v1/callback",
+		ClientID:     config.Config.OAuth.ClientID,
+		ClientSecret: config.Config.OAuth.ClientSecret,
+		Endpoint:     github.Endpoint,
+		Scopes: []string{
+			"user:email",
+		},
 	}
 
 	// Start Fiber web server

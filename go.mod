@@ -7,4 +7,5 @@ require (
 	github.com/gofiber/fiber/v2 v2.2.0
 	github.com/knadh/koanf v0.14.0
 	github.com/magefile/mage v1.10.0
+	golang.org/x/oauth2 v0.0.0-20201109201403-9fd604954f58
 )

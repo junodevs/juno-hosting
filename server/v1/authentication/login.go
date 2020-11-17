@@ -6,9 +6,22 @@
 
 package authentication
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/junodevs/hosting-server/util"
+	"golang.org/x/oauth2"
+)
+
+var (
+	oauthStateString = util.RandomString(20)
+	// OAuthConfig represents a oauth2 config
+	OAuthConfig *oauth2.Config
+)
 
 // LoginRoute represents the POST /login API route
 func LoginRoute(c *fiber.Ctx) error {
-	return nil
+	return c.Redirect(
+		OAuthConfig.AuthCodeURL(oauthStateString),
+		fiber.StatusTemporaryRedirect,
+	)
 }
