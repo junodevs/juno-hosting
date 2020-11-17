@@ -21,3 +21,8 @@ vendor/
 ### Go Patch ###
 /vendor/
 /Godeps/
+
+### Misc ###
+
+# Secret files
+config.json

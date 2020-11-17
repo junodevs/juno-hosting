@@ -7,7 +7,7 @@ This repository holds the code for the backend server that powers many aspects o
 
 ## Contributing
 
-1. Fork it (<https://github.com/lukewhrit/basalt/fork>).
+1. Fork it (<https://github.com/junodevs/hosting-server/fork>).
 2. Create your feature branch (`git checkout -b my-new-feature`).
 3. Commit your changes (`git commit -am 'Add some feature'`).
 4. Push to the branch (`git push origin my-new-feature`).
@@ -20,4 +20,4 @@ This repository holds the code for the backend server that powers many aspects o
 
 ## License
 
-Hosting Server is available to the public under the specific terms of [the Mozilla Public License 2.0](LICENSE).
+The Juno Hosting server is available to the public under the specific terms of [the Mozilla Public License 2.0](LICENSE).
