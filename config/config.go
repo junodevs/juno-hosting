@@ -29,7 +29,7 @@ var (
 
 		RateLimit struct {
 			Requests int           `koanf:"requests"`
-			Per      time.Duration `koanf:"per"`
+			Duration time.Duration `koanf:"duration"`
 		} `koanf:"ratelimit"`
 
 		OAuth struct {

@@ -2,7 +2,10 @@
 	"hostname": "127.0.0.1",
 	"port": 8080,
 	"prefork": false,
-	"ratelimit": {},
+	"ratelimit": {
+		"requests": 50,
+		"duration": 3
+	},
 	"redis_uri": "redis://localhost:6379/0",
 	"oauth": {
 		"client_id": "",
