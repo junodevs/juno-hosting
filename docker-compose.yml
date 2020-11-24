@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  redis:
+    image: redis:6.0.9-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+  api:
+    build: .
+    depends_on:
+      - redis
+    ports:
+      - '8080:8080'
