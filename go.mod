@@ -3,9 +3,13 @@ module github.com/junodevs/hosting-server
 go 1.15
 
 require (
-	github.com/go-redis/redis/v8 v8.3.3
-	github.com/gofiber/fiber/v2 v2.2.0
+	github.com/go-chi/chi v1.5.0
+	github.com/go-chi/cors v1.1.1
+	github.com/go-chi/httprate v0.4.0
+	github.com/go-redis/redis/v8 v8.4.0
 	github.com/knadh/koanf v0.14.0
 	github.com/magefile/mage v1.10.0
+	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b // indirect
 	golang.org/x/oauth2 v0.0.0-20201109201403-9fd604954f58
+	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 )

@@ -4,14 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package server
+package domain
 
 // Response represents an API response
 type Response struct {
-	Status  int      `json:"status"`
-	Payload *Payload `json:"payload"`
-	Error   string   `json:"error"`
+	Status  int                    `json:"status"`
+	Payload map[string]interface{} `json:"payload"`
+	Error   string                 `json:"error"`
 }
-
-// Payload is a shortcut to the map[string]interface{} type
-type Payload map[string]interface{}

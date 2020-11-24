@@ -4,13 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package authentication
+package auth
 
-import "github.com/gofiber/fiber/v2"
+import "net/http"
 
 // MeRoute represents the GET /me API route
-func MeRoute(c *fiber.Ctx) error {
-	c.SendString("Hello")
-
-	return nil
+func MeRoute(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello, world!"))
 }

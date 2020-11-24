@@ -4,14 +4,17 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package authentication
+package auth
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/go-chi/chi"
+	"github.com/junodevs/hosting-server/domain"
 	"golang.org/x/oauth2"
 )
 
@@ -50,16 +53,27 @@ func getUserInfo(state, code string) ([]byte, error) {
 	return contents, nil
 }
 
-// CallbackRoute represents the POST /login API route
-func CallbackRoute(c *fiber.Ctx) error {
-	userInfo, err := getUserInfo(c.Query("state"), c.Query("code"))
+// CallbackRoute represents the GET /auth/callback API route
+func CallbackRoute(w http.ResponseWriter, r *http.Request) {
+	userInfo, err := getUserInfo(
+		chi.URLParam(r, "state"),
+		chi.URLParam(r, "code"),
+	)
 
 	if err != nil {
-		return err
+		body, err := json.Marshal(&domain.Response{
+			Status:  http.StatusInternalServerError,
+			Payload: map[string]interface{}{},
+			Error:   err.Error(),
+		})
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		w.Write(body)
 	}
 
 	fmt.Println(string(userInfo))
-	c.Redirect("/v1/")
-
-	return nil
+	http.Redirect(w, r, "/v1", http.StatusMovedPermanently)
 }

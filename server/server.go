@@ -8,40 +8,48 @@ package server
 
 import (
 	"fmt"
+	"net/http"
+	"time"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
+	"github.com/go-chi/httprate"
 	"github.com/junodevs/hosting-server/config"
+	"github.com/junodevs/hosting-server/server/routes/auth"
 )
 
-// Start begins the Fiber server on the port and hostname
-func Start(port int, hostname string) (*fiber.App, error) {
-	app := fiber.New(fiber.Config{
-		Prefork: config.Config.Prefork,
-		ErrorHandler: func(c *fiber.Ctx, err error) error {
-			// Default 500 status code
-			code := fiber.StatusInternalServerError
+// Start begins the web server on the port and hostname
+func Start(port int, hostname string) error {
+	r := chi.NewRouter()
 
-			if e, ok := err.(*fiber.Error); ok {
-				// Override status code if fiber.Error type
-				code = e.Code
-			}
-
-			// Set Content-Type: text/plain; charset=utf-8
-			c.Set(fiber.HeaderContentType, fiber.MIMETextPlainCharsetUTF8)
-
-			// Return status code with error message
-			return c.Status(code).JSON(&Response{
-				Error:   err.Error(),
-				Payload: &Payload{},
-				Status:  code,
-			})
+	// Register HTTP middleware functions
+	r.Use(middleware.Logger)
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+		AllowedHeaders: []string{
+			"Accept",
+			"Authorization",
+			"Content-Type",
+			"X-CSRF-Token",
 		},
-	})
+		ExposedHeaders:   []string{"Link"},
+		AllowCredentials: false,
+		MaxAge:           300, // Maximum value not ignored by any of major browsers
+	}))
+	r.Use(middleware.AllowContentType(""))
+	r.Use(httprate.LimitByIP(
+		config.Config.RateLimit.Requests,
+		config.Config.RateLimit.Duration*time.Second,
+	))
 
-	registerRoutes(app)
-	registerMiddleware(app)
+	// Register API endpoints
+	r.Get("/v1/callback", auth.CallbackRoute)
+	r.Get("/v1/login", auth.LoginRoute)
+	r.Get("/v1/me", auth.MeRoute)
 
-	return app, app.Listen(
-		fmt.Sprintf("%s:%d", hostname, port),
-	)
+	fmt.Printf("Juno Hosting API server listening on %s:%d\n", hostname, port)
+
+	return http.ListenAndServe(fmt.Sprintf("%s:%d", hostname, port), r)
 }

@@ -4,10 +4,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package authentication
+package auth
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"net/http"
+
 	"github.com/junodevs/hosting-server/util"
 	"golang.org/x/oauth2"
 )
@@ -18,10 +19,10 @@ var (
 	OAuthConfig *oauth2.Config
 )
 
-// LoginRoute represents the POST /login API route
-func LoginRoute(c *fiber.Ctx) error {
-	return c.Redirect(
+// LoginRoute represents the GET /auth/login API route
+func LoginRoute(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r,
 		OAuthConfig.AuthCodeURL(oauthStateString),
-		fiber.StatusTemporaryRedirect,
+		http.StatusTemporaryRedirect,
 	)
 }
