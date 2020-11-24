@@ -8,6 +8,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/junodevs/hosting-server/server/routes/auth"
 	"net/http"
 	"time"
 
@@ -16,7 +17,6 @@ import (
 	"github.com/go-chi/cors"
 	"github.com/go-chi/httprate"
 	"github.com/junodevs/hosting-server/config"
-	"github.com/junodevs/hosting-server/server/routes/auth"
 )
 
 // Start begins the web server on the port and hostname
@@ -45,9 +45,12 @@ func Start(port int, hostname string) error {
 	))
 
 	// Register API endpoints
-	r.Get("/v1/callback", auth.CallbackRoute)
-	r.Get("/v1/login", auth.LoginRoute)
-	r.Get("/v1/me", auth.MeRoute)
+	r.Route("/v1", func(r chi.Router) {
+		r.Get("/callback", auth.CallbackRoute)
+		r.Get("/login", auth.LoginRoute)
+		r.Get("/logout", auth.LogoutRoute)
+		r.Get("/me", auth.MeRoute)
+	})
 
 	fmt.Printf("Juno Hosting API server listening on %s:%d\n", hostname, port)
 

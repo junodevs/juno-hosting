@@ -7,22 +7,19 @@
 package auth
 
 import (
+	"html/template"
 	"net/http"
 
-	"github.com/junodevs/hosting-server/util"
-	"golang.org/x/oauth2"
-)
-
-var (
-	oauthStateString = util.RandomString(20)
-	// OAuthConfig represents a oauth2 config
-	OAuthConfig *oauth2.Config
+	"github.com/markbates/goth/gothic"
 )
 
 // LoginRoute represents the GET /auth/login API route
 func LoginRoute(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r,
-		OAuthConfig.AuthCodeURL(oauthStateString),
-		http.StatusTemporaryRedirect,
-	)
+	// attempt to get user without re-auth
+	if gothUser, err := gothic.CompleteUserAuth(w, r); err == nil {
+		t, _ := template.New("foo").Parse(userTemplate)
+		_ = t.Execute(w, gothUser)
+	} else {
+		gothic.BeginAuthHandler(w, r)
+	}
 }

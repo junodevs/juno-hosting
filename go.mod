@@ -9,7 +9,7 @@ require (
 	github.com/go-redis/redis/v8 v8.4.0
 	github.com/knadh/koanf v0.14.0
 	github.com/magefile/mage v1.10.0
+	github.com/markbates/goth v1.66.0
 	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b // indirect
-	golang.org/x/oauth2 v0.0.0-20201109201403-9fd604954f58
 	golang.org/x/sys v0.0.0-20201119102817-f84b799fce68 // indirect
 )
