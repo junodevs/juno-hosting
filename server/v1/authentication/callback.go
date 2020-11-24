@@ -58,7 +58,7 @@ func CallbackRoute(c *fiber.Ctx) error {
 		return err
 	}
 
-	fmt.Println(userInfo)
+	fmt.Println(string(userInfo))
 	c.Redirect("/v1/")
 
 	return nil

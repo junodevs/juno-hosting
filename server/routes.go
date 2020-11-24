@@ -11,11 +11,23 @@ import (
 	"github.com/junodevs/hosting-server/server/v1/authentication"
 )
 
-// registerRoutes registers the API routes of the app
 func registerRoutes(app *fiber.App) {
 	v1 := app.Group("/v1")
 
 	v1.Get("/login", authentication.LoginRoute)
 	v1.Get("/me", authentication.MeRoute)
 	v1.Get("/callback", authentication.CallbackRoute)
+
+	v1.Get("/", func(c *fiber.Ctx) error {
+		return c.JSON(&Response{
+			Status: 200,
+			Payload: &Payload{
+				"name":          "junohosting-server",
+				"version":       "1.0.0",
+				"project_url":   "https://github.com/junodevs/hosting-server",
+				"documentation": "https://junodevs.github.io/hosting-server",
+			},
+			Error: "",
+		})
+	})
 }

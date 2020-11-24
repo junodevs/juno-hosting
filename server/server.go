@@ -29,10 +29,10 @@ func Start(port int, hostname string) (*fiber.App, error) {
 			// Set Content-Type: text/plain; charset=utf-8
 			c.Set(fiber.HeaderContentType, fiber.MIMETextPlainCharsetUTF8)
 
-			// Return statuscode with error message
+			// Return status code with error message
 			return c.Status(code).JSON(&Response{
 				Error:   err.Error(),
-				Payload: map[string]interface{}{},
+				Payload: &Payload{},
 				Status:  code,
 			})
 		},

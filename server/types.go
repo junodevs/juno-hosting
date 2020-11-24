@@ -8,7 +8,10 @@ package server
 
 // Response represents an API response
 type Response struct {
-	Status  int
-	Payload map[string]interface{}
-	Error   string
+	Status  int      `json:"status"`
+	Payload *Payload `json:"payload"`
+	Error   string   `json:"error"`
 }
+
+// Payload is a shortcut to the map[string]interface{} type
+type Payload map[string]interface{}
