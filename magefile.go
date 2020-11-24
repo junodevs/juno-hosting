@@ -8,7 +8,11 @@
 
 package main
 
-import "github.com/magefile/mage/sh"
+import (
+	"runtime"
+
+	"github.com/magefile/mage/sh"
+)
 
 // Build generates a binary of the project
 func Build() error {
@@ -28,6 +32,10 @@ func Format() error {
 func Run() error {
 	if err := Build(); err != nil {
 		return err
+	}
+
+	if runtime.GOOS == "windows" {
+		return sh.RunV("./bin/hosting-server.exe")
 	}
 
 	return sh.RunV("./bin/hosting-server")
