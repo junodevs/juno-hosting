@@ -33,7 +33,10 @@ func init() {
 func main() {
 
 	goth.UseProviders(
-		github.New(config.Config.OAuth.ClientID, config.Config.OAuth.ClientSecret, fmt.Sprintf("http://%s:%d/v1/callback?provider=github", config.Config.HostName, config.Config.Port), "user", "email"),
+		github.New(config.Config.OAuth.ClientID, config.Config.OAuth.ClientSecret,
+			fmt.Sprintf("http://%s:%d/v1/callback?provider=github",
+				config.Config.HostName, config.Config.Port),
+				"email"),
 	)
 
 	// Start web server
