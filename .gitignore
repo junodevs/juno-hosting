@@ -22,6 +22,11 @@ vendor/
 /vendor/
 /Godeps/
 
+### IDE
+
+# IntelliJ Goland / IDEA
+/.idea/
+
 ### Misc ###
 
 # Secret files
