@@ -32,12 +32,16 @@ var (
 			Duration time.Duration `koanf:"duration"`
 		} `koanf:"ratelimit"`
 
-		OAuth struct {
-			ClientID     string `koanf:"client_id"`
-			ClientSecret string `koanf:"client_secret"`
-		} `koanf:"oauth"`
+		GithubOAuth OAuthConfiguration `koanf:"github_oauth"`
+
+		DiscordOAuth OAuthConfiguration `koanf:"discord_oauth"`
 	}
 )
+
+type OAuthConfiguration struct {
+	ClientID     string `koanf:"client_id"`
+	ClientSecret string `koanf:"client_secret"`
+}
 
 // Load configuration from environment or file
 func Load() error {
@@ -48,7 +52,11 @@ func Load() error {
 		"prefork":   false,
 		"ratelimit": map[string]interface{}{},
 		"redis_uri": "redis://127.0.0.1:6379/0",
-		"oauth": map[string]interface{}{
+		"github_oauth": map[string]interface{}{
+			"client_id":     "",
+			"client_secret": "",
+		},
+		"discord_oauth": map[string]interface{}{
 			"client_id":     "",
 			"client_secret": "",
 		},

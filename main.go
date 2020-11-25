@@ -8,6 +8,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/markbates/goth/providers/discord"
 	"log"
 
 	"github.com/junodevs/hosting-server/config"
@@ -33,10 +34,15 @@ func init() {
 func main() {
 
 	goth.UseProviders(
-		github.New(config.Config.OAuth.ClientID, config.Config.OAuth.ClientSecret,
+		github.New(config.Config.GithubOAuth.ClientID, config.Config.GithubOAuth.ClientSecret,
 			fmt.Sprintf("http://%s:%d/v1/callback?provider=github",
 				config.Config.HostName, config.Config.Port),
-				"email"),
+			"email"),
+
+		discord.New(config.Config.DiscordOAuth.ClientID, config.Config.DiscordOAuth.ClientSecret,
+			fmt.Sprintf("http://%s:%d/v1/callback?provider=discord",
+				config.Config.HostName, config.Config.Port),
+			discord.ScopeIdentify, discord.ScopeEmail),
 	)
 
 	// Start web server

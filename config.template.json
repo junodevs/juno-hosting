@@ -7,7 +7,11 @@
 		"duration": 3
 	},
 	"redis_uri": "redis://localhost:6379/0",
-	"oauth": {
+	"github_oauth": {
+		"client_id": "",
+		"client_secret": ""
+	},
+	"discord_oauth": {
 		"client_id": "",
 		"client_secret": ""
 	}
