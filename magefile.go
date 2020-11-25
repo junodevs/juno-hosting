@@ -15,7 +15,7 @@ import (
 )
 
 func getServerExe() string {
-	exe := "./bin/hosting-server"
+	exe := "./bin/juno-hosting"
 
 	if runtime.GOOS == "windows" {
 		exe += ".exe"

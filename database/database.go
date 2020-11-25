@@ -10,7 +10,7 @@ import (
 	"context"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/junodevs/hosting-server/config"
+	"github.com/junodevs/juno-hosting/config"
 )
 
 var (

@@ -8,12 +8,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/markbates/goth/providers/discord"
 	"log"
 
-	"github.com/junodevs/hosting-server/config"
-	"github.com/junodevs/hosting-server/database"
-	"github.com/junodevs/hosting-server/server"
+	"github.com/markbates/goth/providers/discord"
+
+	"github.com/junodevs/juno-hosting/config"
+	"github.com/junodevs/juno-hosting/database"
+	"github.com/junodevs/juno-hosting/server"
 
 	"github.com/markbates/goth"
 	"github.com/markbates/goth/providers/github"

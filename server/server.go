@@ -8,15 +8,16 @@ package server
 
 import (
 	"fmt"
-	"github.com/junodevs/hosting-server/server/routes/auth"
 	"net/http"
 	"time"
+
+	"github.com/junodevs/juno-hosting/server/routes/auth"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
 	"github.com/go-chi/httprate"
-	"github.com/junodevs/hosting-server/config"
+	"github.com/junodevs/juno-hosting/config"
 )
 
 // Start begins the web server on the port and hostname

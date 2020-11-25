@@ -8,12 +8,13 @@ package auth
 
 import (
 	"encoding/json"
-	"github.com/markbates/goth/gothic"
 	"html/template"
 	"log"
 	"net/http"
 
-	"github.com/junodevs/hosting-server/domain"
+	"github.com/markbates/goth/gothic"
+
+	"github.com/junodevs/juno-hosting/domain"
 )
 
 // CallbackRoute represents the GET /auth/callback API route

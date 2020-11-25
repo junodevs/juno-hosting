@@ -1,4 +1,4 @@
-module github.com/junodevs/hosting-server
+module github.com/junodevs/juno-hosting
 
 go 1.15
 
