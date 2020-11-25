@@ -8,7 +8,6 @@ package auth
 
 import (
 	"encoding/json"
-	"html/template"
 	"log"
 	"net/http"
 
@@ -20,6 +19,7 @@ import (
 // CallbackRoute represents the GET /auth/callback API route
 func CallbackRoute(w http.ResponseWriter, r *http.Request) {
 	user, err := gothic.CompleteUserAuth(w, r)
+
 	if err != nil {
 		body, err := json.Marshal(&domain.Response{
 			Status:  http.StatusInternalServerError,
@@ -31,11 +31,30 @@ func CallbackRoute(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 
-		_, _ = w.Write(body)
+		w.Header().Add("Content-Type", "application/json; charset=UTF-8")
+		w.Write(body)
 
 		return
 	}
 
-	t, _ := template.New("foo").Parse(userTemplate)
-	_ = t.Execute(w, user)
+	body, err := json.Marshal(&domain.Response{
+		Status: http.StatusOK,
+		Payload: map[string]interface{}{
+			"Name":        user.Name,
+			"Email":       user.Email,
+			"NickName":    user.NickName,
+			"Location":    user.Location,
+			"AvatarURL":   user.AvatarURL,
+			"Description": user.Description,
+			"UserID":      user.UserID,
+		},
+		Error: "",
+	})
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
+	w.Write(body)
 }
