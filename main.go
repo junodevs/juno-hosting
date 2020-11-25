@@ -35,15 +35,28 @@ func init() {
 func main() {
 
 	goth.UseProviders(
-		github.New(config.Config.GithubOAuth.ClientID, config.Config.GithubOAuth.ClientSecret,
-			fmt.Sprintf("http://%s:%d/v1/callback?provider=github",
-				config.Config.HostName, config.Config.Port),
-			"email"),
-
-		discord.New(config.Config.DiscordOAuth.ClientID, config.Config.DiscordOAuth.ClientSecret,
-			fmt.Sprintf("http://%s:%d/v1/callback?provider=discord",
-				config.Config.HostName, config.Config.Port),
-			discord.ScopeIdentify, discord.ScopeEmail),
+		github.New(
+			config.Config.GithubOAuth.ClientID,
+			config.Config.GithubOAuth.ClientSecret,
+			fmt.Sprintf(
+				"http://%s:%d/v1/auth/callback?provider=github",
+				config.Config.HostName,
+				config.Config.Port,
+			),
+			"user:email",
+			"read:user",
+		),
+		discord.New(
+			config.Config.DiscordOAuth.ClientID,
+			config.Config.DiscordOAuth.ClientSecret,
+			fmt.Sprintf(
+				"http://%s:%d/v1/auth/callback?provider=discord",
+				config.Config.HostName,
+				config.Config.Port,
+			),
+			discord.ScopeIdentify,
+			discord.ScopeEmail,
+		),
 	)
 
 	// Start web server

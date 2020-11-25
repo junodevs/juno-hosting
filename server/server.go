@@ -47,10 +47,11 @@ func Start(port int, hostname string) error {
 
 	// Register API endpoints
 	r.Route("/v1", func(r chi.Router) {
-		r.Get("/callback", auth.CallbackRoute)
-		r.Get("/login", auth.LoginRoute)
-		r.Get("/logout", auth.LogoutRoute)
-		r.Get("/me", auth.MeRoute)
+		r.Route("/auth", func(r chi.Router) {
+			r.Get("/callback", auth.CallbackRoute)
+			r.Get("/login", auth.LoginRoute)
+			r.Get("/logout", auth.LogoutRoute)
+		})
 	})
 
 	fmt.Printf("Juno Hosting API server listening on %s:%d\n", hostname, port)
