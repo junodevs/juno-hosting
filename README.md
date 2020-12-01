@@ -1,5 +1,7 @@
 # Juno Hosting
 
+![Go Report Card](https://goreportcard.com/badge/github.com/junodevs/juno-hosting) ![License](https://img.shields.io/github/license/junodevs/juno-hosting)
+
 This repository holds the code for the backend server that powers many aspects of the [Juno Hosting Website](https://junohosting.net) such as authentication, billing, etc.
 
 ## Installation
