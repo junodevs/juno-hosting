@@ -14,7 +14,7 @@ $ git clone https://github.com/junodevs/juno-hosting.git
 $ cd juno-hosting
 
 # Build and run docker images 
-$ docker-compuse up
+$ docker-compose up
 ```
 
 ## Usage
